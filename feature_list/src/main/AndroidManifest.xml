@@ -9,11 +9,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Mentor">
         <activity
-            android:name=".ListActivity"
+            android:name=".ui.ListActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 

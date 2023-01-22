@@ -16,3 +16,4 @@ rootProject.name = "Mentor"
 include ':app'
 include ':feature_list'
 include ':feature_details'
+include ':utils'
