@@ -1,4 +1,4 @@
-package com.r42914lg.feature_list.domain.remote
+package com.r42914lg.core.domain.remote
 
 data class Category(
     val id: Int,

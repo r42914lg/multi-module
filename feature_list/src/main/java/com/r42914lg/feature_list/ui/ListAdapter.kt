@@ -6,19 +6,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.r42914lg.feature_list.databinding.ListItemBinding
-import com.r42914lg.feature_list.domain.remote.Category
+import com.r42914lg.core.domain.remote.Category
 
 class ListAdapter(private val listener: ClickListener) :
     RecyclerView.Adapter<ListAdapter.ViewHolder>() {
 
-    private val items = mutableListOf<Category>()
+    private val items = mutableListOf<com.r42914lg.core.domain.remote.Category>()
 
     interface ClickListener {
         fun itemClicked(itemId: Int)
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setItems(items: List<Category>) {
+    fun setItems(items: List<com.r42914lg.core.domain.remote.Category>) {
         this.items.clear()
         this.items.addAll(items)
         notifyDataSetChanged()
@@ -45,14 +45,14 @@ class ListAdapter(private val listener: ClickListener) :
         private val listener: ClickListener
     ) : RecyclerView.ViewHolder(itemBinding.root), View.OnClickListener {
 
-        private lateinit var _item: Category
+        private lateinit var _item: com.r42914lg.core.domain.remote.Category
 
         init {
             itemBinding.root.setOnClickListener(this)
         }
 
         @SuppressLint("SetTextI18n")
-        fun bind(item: Category) = with(itemBinding) {
+        fun bind(item: com.r42914lg.core.domain.remote.Category) = with(itemBinding) {
             _item = item
 
             categoryIdText.text = "Category ID: ${item.id}"
