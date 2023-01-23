@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
-import com.r42914lg.core.domain.remote.CategoryDetailed
+import com.r42914lg.core.domain.remote.model.CategoryDetailed
 import com.r42914lg.feature_details.databinding.ActivityDetailsBinding
 import com.r42914lg.utils.Resource
 
