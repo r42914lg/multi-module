@@ -2,8 +2,9 @@ package com.r42914lg.core.data.remote.dataSource
 
 import com.r42914lg.core.data.remote.service.CategoryService
 import com.r42914lg.utils.BaseDataSource
+import javax.inject.Inject
 
-class CategoryDataSource constructor(
+class CategoryDataSource @Inject constructor(
     private val categoryService: CategoryService
 ) : BaseDataSource() {
 

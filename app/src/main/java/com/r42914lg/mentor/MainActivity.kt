@@ -7,6 +7,7 @@ import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
 
 import com.r42914lg.feature_details.ui.DetailsActivity
+import com.r42914lg.feature_details.ui.DetailsActivity.Companion.ACTION_NAVIGATE_TO_LIST
 import com.r42914lg.feature_list.ui.ListActivity
 import com.r42914lg.feature_list.ui.ListActivity.Companion.ACTION_BACK
 import com.r42914lg.feature_list.ui.ListActivity.Companion.ACTION_NAVIGATE_TO_DETAILS
@@ -32,9 +33,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun handleResponseFromListActivity(action: String?) {
         when (action) {
-            ACTION_NAVIGATE_TO_DETAILS -> startActivity(Intent(
-                this,
-                DetailsActivity::class.java)
+            ACTION_NAVIGATE_TO_DETAILS -> resultLauncher.launch(
+                Intent(this, DetailsActivity::class.java)
+            )
+            ACTION_NAVIGATE_TO_LIST -> resultLauncher.launch(
+                Intent(this, ListActivity::class.java)
             )
             ACTION_BACK -> finish()
         }

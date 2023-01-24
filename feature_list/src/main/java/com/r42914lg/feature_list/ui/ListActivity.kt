@@ -8,14 +8,25 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.r42914lg.core.di.DaggerCoreComponent
 import com.r42914lg.feature_list.databinding.ActivityListBinding
+import com.r42914lg.feature_list.di.DaggerFeatureListComponent
+import com.r42914lg.feature_list.di.FeatureListComponent
 import com.r42914lg.utils.Resource
+import com.r42914lg.utils.VmFactory
 
 class ListActivity : AppCompatActivity(), ListAdapter.ClickListener {
 
     private lateinit var binding: ActivityListBinding
     private lateinit var adapter: ListAdapter
-    private val listViewModel: ListViewModel by viewModels()
+
+    private lateinit var featureListComponent: FeatureListComponent
+
+    private val listViewModel: ListViewModel by viewModels {
+        VmFactory {
+            featureListComponent.getVmFactory().create()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,9 +34,12 @@ class ListActivity : AppCompatActivity(), ListAdapter.ClickListener {
         binding = ActivityListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val coreComponent = DaggerCoreComponent.factory().create(application)
+        featureListComponent  = DaggerFeatureListComponent.factory().create(coreComponent)
+
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                returnToAppWithAction(ACTION_BACK)
+                returnToMainWithAction(ACTION_BACK)
             }
         })
 
@@ -54,15 +68,14 @@ class ListActivity : AppCompatActivity(), ListAdapter.ClickListener {
                 }
             }
         }
-
     }
 
     override fun itemClicked(itemId: Int) {
         listViewModel.saveCategoryId(itemId)
-        returnToAppWithAction(ACTION_NAVIGATE_TO_DETAILS)
+        returnToMainWithAction(ACTION_NAVIGATE_TO_DETAILS)
     }
 
-    private fun returnToAppWithAction(action: String) {
+    private fun returnToMainWithAction(action: String) {
         val data = Intent()
 
         data.putExtra(EXTRA_NAME, action);

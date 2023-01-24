@@ -13,6 +13,6 @@ interface CategoryDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertCategory(category: CategoryEntity)
 
-    @Query("SELECT * FROM Category WHERE id = :id")
+    @Query("SELECT * FROM CategoryEntity WHERE id = :id")
     fun getCategoryById(id: Int) : LiveData<CategoryEntity?>?
 }
