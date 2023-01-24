@@ -5,10 +5,15 @@ import com.r42914lg.core.domain.local.model.CategoryEntity
 import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
-class SaveCategoryUseCase @Inject constructor(
+interface SaveCategoryUseCase {
+    fun execute(categoryEntity: CategoryEntity)
+}
+
+class SaveCategoryUseCaseImpl @Inject constructor(
     private val categoryRepository: CategoryRepository
-) {
-    fun execute(categoryEntity: CategoryEntity) {
+) : SaveCategoryUseCase {
+
+    override fun execute(categoryEntity: CategoryEntity) {
         runBlocking {
             categoryRepository.saveCategory(categoryEntity)
         }

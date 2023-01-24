@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
-import com.r42914lg.core.di.DaggerCoreComponent
 import com.r42914lg.core.di.InjectUtils
 import com.r42914lg.core.domain.remote.model.CategoryDetailed
 import com.r42914lg.feature_details.databinding.ActivityDetailsBinding

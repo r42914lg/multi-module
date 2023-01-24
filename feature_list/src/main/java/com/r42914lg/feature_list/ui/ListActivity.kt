@@ -8,7 +8,6 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.r42914lg.core.di.DaggerCoreComponent
 import com.r42914lg.core.di.InjectUtils
 import com.r42914lg.feature_list.databinding.ActivityListBinding
 import com.r42914lg.feature_list.di.DaggerFeatureListComponent

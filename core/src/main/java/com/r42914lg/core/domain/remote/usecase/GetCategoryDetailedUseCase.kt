@@ -6,11 +6,15 @@ import com.r42914lg.core.domain.remote.model.CategoryDetailed
 import com.r42914lg.utils.Resource
 import javax.inject.Inject
 
+interface GetCategoryDetailedUseCase {
+    fun execute(categoryId: Int): LiveData<Resource<CategoryDetailed>>
+}
 
-class GetCategoryDetailedUseCase @Inject constructor(
+class GetCategoryDetailedUseCaseImpl @Inject constructor(
     private val categoryRepository: CategoryRepository
-) {
-    fun execute(categoryId: Int): LiveData<Resource<CategoryDetailed>> {
+) : GetCategoryDetailedUseCase {
+
+    override fun execute(categoryId: Int): LiveData<Resource<CategoryDetailed>> {
         return categoryRepository.getCategoryDetails(categoryId)
     }
 }

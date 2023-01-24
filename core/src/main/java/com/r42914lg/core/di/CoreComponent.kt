@@ -11,6 +11,7 @@ import dagger.Component
 @Component(modules = [
     RoomModule::class,
     RetrofitModule::class,
+    CoreModule::class,
 ])
 interface CoreComponent {
 
@@ -19,8 +20,8 @@ interface CoreComponent {
         fun create(@BindsInstance app: Application): CoreComponent
     }
 
-    fun expose_GetCategoryUseCase(): GetCategoryUseCase
-    fun expose_SaveCategoryUseCase(): SaveCategoryUseCase
-    fun expose_GetCategoryDetailedUseCase(): GetCategoryDetailedUseCase
-    fun expose_GetCategoryListUseCase(): GetCategoryListUseCase
+    fun exposeGetCategoryUseCase(): GetCategoryUseCase
+    fun exposeSaveCategoryUseCase(): SaveCategoryUseCase
+    fun exposeGetCategoryDetailedUseCase(): GetCategoryDetailedUseCase
+    fun exposeGetCategoryListUseCase(): GetCategoryListUseCase
 }

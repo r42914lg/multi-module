@@ -6,10 +6,15 @@ import com.r42914lg.core.domain.remote.model.Category
 import com.r42914lg.utils.Resource
 import javax.inject.Inject
 
-class GetCategoryListUseCase @Inject constructor(
+interface GetCategoryListUseCase {
+    fun execute(): LiveData<Resource<List<Category>>>
+}
+
+class GetCategoryListUseCaseImpl @Inject constructor(
     private val categoryRepository: CategoryRepository
-) {
-    fun execute(): LiveData<Resource<List<Category>>> {
+) : GetCategoryListUseCase {
+
+    override fun execute(): LiveData<Resource<List<Category>>> {
         return categoryRepository.getCategoryList()
     }
 }
