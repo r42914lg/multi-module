@@ -37,6 +37,7 @@ dependencies {
 
     implementation project(path: ':feature_list')
     implementation project(path: ':feature_details')
+    implementation project(path: ':core')
 
     // Dagger
     implementation 'com.google.dagger:dagger:2.43.2'

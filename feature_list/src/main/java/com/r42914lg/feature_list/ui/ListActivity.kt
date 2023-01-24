@@ -9,6 +9,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.r42914lg.core.di.DaggerCoreComponent
+import com.r42914lg.core.di.InjectUtils
 import com.r42914lg.feature_list.databinding.ActivityListBinding
 import com.r42914lg.feature_list.di.DaggerFeatureListComponent
 import com.r42914lg.feature_list.di.FeatureListComponent
@@ -34,8 +35,9 @@ class ListActivity : AppCompatActivity(), ListAdapter.ClickListener {
         binding = ActivityListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val coreComponent = DaggerCoreComponent.factory().create(application)
-        featureListComponent  = DaggerFeatureListComponent.factory().create(coreComponent)
+        featureListComponent  = DaggerFeatureListComponent
+            .factory()
+            .create(InjectUtils.provideCoreComponent(application))
 
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
