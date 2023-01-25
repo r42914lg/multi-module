@@ -7,11 +7,13 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
+import javax.inject.Singleton
 
 @Module
 class RetrofitModule {
 
     @Provides
+    @Singleton
     fun provideCategoryService(): CategoryService =
         retrofit.create(CategoryService::class.java)
 

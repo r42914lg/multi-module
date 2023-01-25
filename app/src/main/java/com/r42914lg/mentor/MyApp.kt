@@ -14,7 +14,7 @@ class MyApp : Application(), CoreComponentProvider {
         coreComponent = DaggerCoreComponent.factory().create(this)
     }
 
-    override fun provideBaseComponent(): CoreComponent {
+    override fun provideCoreComponent(): CoreComponent {
         return coreComponent
     }
 }
