@@ -6,7 +6,7 @@ interface CoreComponentProvider {
     fun provideCoreComponent(): CoreComponent
 }
 
-object InjectUtils {
+object InjectCoreComponentUtils {
     fun provideCoreComponent(applicationContext: Context): CoreComponent {
         return if (applicationContext is CoreComponentProvider) {
             (applicationContext as CoreComponentProvider).provideCoreComponent()

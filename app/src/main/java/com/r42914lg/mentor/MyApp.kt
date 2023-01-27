@@ -6,6 +6,7 @@ import com.r42914lg.core.di.CoreComponentProvider
 import com.r42914lg.core.di.DaggerCoreComponent
 
 class MyApp : Application(), CoreComponentProvider {
+
     private lateinit var coreComponent: CoreComponent
 
     override fun onCreate() {

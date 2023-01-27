@@ -1,45 +1,35 @@
 package com.r42914lg.mentor
 
-import android.app.Activity
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.activity.result.contract.ActivityResultContracts
+import com.r42914lg.feature_details.navigation.NavFeatureDetailsProvider
+import com.r42914lg.feature_list.navigation.NavFeatureListProvider
+import com.r42914lg.mentor.databinding.ActivityMainBinding
+import com.r42914lg.mentor.di.DaggerNavigationComponent
+import com.r42914lg.mentor.di.NavigationComponent
+import com.r42914lg.mentor.navigation.NavAppProvider
 
-import com.r42914lg.feature_details.ui.DetailsActivity
-import com.r42914lg.feature_details.ui.DetailsActivity.Companion.ACTION_NAVIGATE_TO_LIST
-import com.r42914lg.feature_list.ui.ListActivity
-import com.r42914lg.feature_list.ui.ListActivity.Companion.ACTION_BACK
-import com.r42914lg.feature_list.ui.ListActivity.Companion.ACTION_NAVIGATE_TO_DETAILS
-import com.r42914lg.feature_list.ui.ListActivity.Companion.EXTRA_NAME
+class MainActivity : AppCompatActivity(),
+    NavFeatureDetailsProvider,
+    NavFeatureListProvider,
+    NavAppProvider
+{
 
-class MainActivity : AppCompatActivity() {
-
-    private val resultLauncher = registerForActivityResult(ActivityResultContracts
-        .StartActivityForResult()) { result ->
-
-        if (result.resultCode == Activity.RESULT_OK) {
-            val data: Intent? = result.data
-            handleResponseFromListActivity(data?.getStringExtra(EXTRA_NAME))
-        }
-    }
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var navigationComponent: NavigationComponent
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val intent = Intent(this, ListActivity::class.java)
-        resultLauncher.launch(intent)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        navigationComponent = DaggerNavigationComponent.factory().create(this)
+
+        provideNavApp().toStart()
     }
 
-    private fun handleResponseFromListActivity(action: String?) {
-        when (action) {
-            ACTION_NAVIGATE_TO_DETAILS -> resultLauncher.launch(
-                Intent(this, DetailsActivity::class.java)
-            )
-            ACTION_NAVIGATE_TO_LIST -> resultLauncher.launch(
-                Intent(this, ListActivity::class.java)
-            )
-            ACTION_BACK -> finish()
-        }
-    }
+    override fun provideNavApp() = navigationComponent.exposeNavApp()
+    override fun provideNavFeatureDetails() = navigationComponent.exposeNavFeatureDetails()
+    override fun provideNavFeatureList() = navigationComponent.exposeNavFeatureList()
 }

@@ -1,25 +1,31 @@
 package com.r42914lg.feature_details.ui
 
 import android.annotation.SuppressLint
-import android.app.Activity
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
-import androidx.activity.viewModels
-import com.r42914lg.core.di.InjectUtils
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import com.r42914lg.core.di.InjectCoreComponentUtils
 import com.r42914lg.core.domain.remote.model.CategoryDetailed
 import com.r42914lg.feature_details.databinding.ActivityDetailsBinding
 import com.r42914lg.feature_details.di.DaggerFeatureDetailsComponent
 import com.r42914lg.feature_details.di.FeatureDetailsComponent
+import com.r42914lg.feature_details.navigation.InjectNavFeatureDetailsUtils
+import com.r42914lg.feature_details.navigation.NavFeatureDetails
 import com.r42914lg.utils.Resource
 import com.r42914lg.utils.VmFactory
 
-class DetailsActivity : AppCompatActivity() {
+class DetailsFragment: Fragment() {
 
-    private lateinit var binding: ActivityDetailsBinding
+    private var _binding: ActivityDetailsBinding? = null
+    private val binding get() = _binding!!
+
     private lateinit var featureDetailsComponent: FeatureDetailsComponent
+    private lateinit var navFeatureDetails: NavFeatureDetails
 
     private val detailsViewModel: DetailsViewModel by viewModels {
         VmFactory {
@@ -27,37 +33,46 @@ class DetailsActivity : AppCompatActivity() {
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityDetailsBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        _binding = ActivityDetailsBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
-        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        featureDetailsComponent = DaggerFeatureDetailsComponent
+            .factory()
+            .create(InjectCoreComponentUtils.provideCoreComponent(requireActivity().application))
+
+        navFeatureDetails = InjectNavFeatureDetailsUtils.provideNavFeatureDetails(requireActivity())
+
+        activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                returnToMainWithAction(ACTION_NAVIGATE_TO_LIST)
+                navFeatureDetails.goBackFromDetails()
             }
         })
-
-        featureDetailsComponent  = DaggerFeatureDetailsComponent
-            .factory()
-            .create(InjectUtils.provideCoreComponent(application))
 
         setUpObserver()
     }
 
     private fun setUpObserver() {
-        detailsViewModel.categoryDetailed.observe(this) { catId ->
+        detailsViewModel.categoryDetailed.observe(viewLifecycleOwner) { catId ->
             if (catId == -1)
                 return@observe
 
-            detailsViewModel.getDetails().observe(this) {
+            detailsViewModel.getDetails().observe(viewLifecycleOwner) {
                 when (it.status) {
                     Resource.Status.SUCCESS -> {
                         initUi(it.data!!)
                     }
                     Resource.Status.ERROR -> {
-                        Toast.makeText(this, "${it.message}", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), "${it.message}", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
@@ -76,19 +91,5 @@ class DetailsActivity : AppCompatActivity() {
         }
 
         binding.detailClues.text = buffer
-    }
-
-    private fun returnToMainWithAction(action: String) {
-        val data = Intent()
-
-        data.putExtra(EXTRA_NAME, action);
-        setResult(Activity.RESULT_OK, data);
-
-        finish()
-    }
-
-    companion object {
-        const val EXTRA_NAME = "extra name"
-        const val ACTION_NAVIGATE_TO_LIST = "to list"
     }
 }
