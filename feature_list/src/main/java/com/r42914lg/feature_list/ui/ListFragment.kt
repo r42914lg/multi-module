@@ -6,16 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavDeepLinkRequest
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.r42914lg.core.di.InjectCoreComponentUtils
-import com.r42914lg.core.domain.remote.model.Category
 import com.r42914lg.feature_list.databinding.ActivityListBinding
 import com.r42914lg.feature_list.di.DaggerFeatureListComponent
 import com.r42914lg.feature_list.di.FeatureListComponent
-import com.r42914lg.feature_list.navigation.InjectNavFeatureListUtils
-import com.r42914lg.feature_list.navigation.NavFeatureList
 import com.r42914lg.utils.Resource
 import com.r42914lg.utils.VmFactory
 
@@ -27,7 +27,6 @@ class ListFragment : Fragment(), ListAdapter.ClickListener {
     private lateinit var adapter: ListAdapter
 
     private lateinit var featureListComponent: FeatureListComponent
-    private lateinit var navFeatureList: NavFeatureList
 
     private val listViewModel: ListViewModel by viewModels {
         VmFactory {
@@ -52,11 +51,9 @@ class ListFragment : Fragment(), ListAdapter.ClickListener {
             .factory()
             .create(InjectCoreComponentUtils.provideCoreComponent(requireActivity().application))
 
-        navFeatureList = InjectNavFeatureListUtils.provideNavFeatureDetails(requireActivity())
-
         activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                navFeatureList.goBackFromList()
+                findNavController().popBackStack()
             }
         })
 
@@ -89,6 +86,11 @@ class ListFragment : Fragment(), ListAdapter.ClickListener {
 
     override fun itemClicked(itemId: Int) {
         listViewModel.saveCategoryId(itemId)
-        navFeatureList.nextAction()
+
+        val request = NavDeepLinkRequest.Builder
+            .fromUri("android-app://example.google.app/my_details".toUri())
+            .build()
+
+        findNavController().navigate(request)
     }
 }

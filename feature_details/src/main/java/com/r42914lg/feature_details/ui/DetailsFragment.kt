@@ -7,15 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavDeepLinkRequest
+import androidx.navigation.fragment.findNavController
 import com.r42914lg.core.di.InjectCoreComponentUtils
 import com.r42914lg.core.domain.remote.model.CategoryDetailed
 import com.r42914lg.feature_details.databinding.ActivityDetailsBinding
 import com.r42914lg.feature_details.di.DaggerFeatureDetailsComponent
 import com.r42914lg.feature_details.di.FeatureDetailsComponent
-import com.r42914lg.feature_details.navigation.InjectNavFeatureDetailsUtils
-import com.r42914lg.feature_details.navigation.NavFeatureDetails
 import com.r42914lg.utils.Resource
 import com.r42914lg.utils.VmFactory
 
@@ -25,7 +26,6 @@ class DetailsFragment: Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var featureDetailsComponent: FeatureDetailsComponent
-    private lateinit var navFeatureDetails: NavFeatureDetails
 
     private val detailsViewModel: DetailsViewModel by viewModels {
         VmFactory {
@@ -50,11 +50,13 @@ class DetailsFragment: Fragment() {
             .factory()
             .create(InjectCoreComponentUtils.provideCoreComponent(requireActivity().application))
 
-        navFeatureDetails = InjectNavFeatureDetailsUtils.provideNavFeatureDetails(requireActivity())
-
         activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                navFeatureDetails.goBackFromDetails()
+                val request = NavDeepLinkRequest.Builder
+                    .fromUri("android-app://example.google.app/my_list".toUri())
+                    .build()
+
+                findNavController().navigate(request)
             }
         })
 
