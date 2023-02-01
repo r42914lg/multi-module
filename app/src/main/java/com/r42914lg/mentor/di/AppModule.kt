@@ -21,7 +21,7 @@ interface AppModule {
     fun provideFeatureListDependencies(coreApi: CoreApi, navigationApi: NavigationApi): FeatureListDependencies {
         return object : FeatureListDependencies {
             override fun getVmFactory(): ListViewModel.Factory {
-                
+
             }
 
             override fun getCategoryListUseCase(): GetCategoryListUseCase =
