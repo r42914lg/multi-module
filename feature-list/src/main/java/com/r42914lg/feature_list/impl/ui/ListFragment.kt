@@ -9,23 +9,25 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.r42914lg.feature_list.api.FeatureListNavigationContract
 import com.r42914lg.feature_list.databinding.ActivityListBinding
-import com.r42914lg.feature_list.di.FeatureListDependencies
 import com.r42914lg.utils.Resource
 import com.r42914lg.utils.VmFactory
+import javax.inject.Inject
 
-class ListFragment : Fragment(), ListAdapter.ClickListener {
+class ListFragment @Inject constructor(
+    private val featureListNavigationContract: FeatureListNavigationContract,
+    private val vmFactory: ListViewModel.Factory
+) : Fragment(), ListAdapter.ClickListener {
 
     private var _binding: ActivityListBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var adapter: ListAdapter
 
-    private lateinit var featureListDependencies: FeatureListDependencies
-
     private val listViewModel: ListViewModel by viewModels {
         VmFactory {
-            featureListDependencies.getVmFactory().create()
+            vmFactory.create()
         }
     }
 
@@ -42,15 +44,9 @@ class ListFragment : Fragment(), ListAdapter.ClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        featureListComponent  = DaggerFeatureListComponent
-//            .factory()
-//            .create(InjectCoreComponentUtils.provideCoreComponent(requireActivity().application))
-//
-//        navFeatureList = InjectNavFeatureListUtils.provideNavFeatureDetails(requireActivity())
-
         activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                featureListDependencies.goBackFromList()
+                featureListNavigationContract.goBackFromList()
             }
         })
 
@@ -83,6 +79,6 @@ class ListFragment : Fragment(), ListAdapter.ClickListener {
 
     override fun itemClicked(itemId: Int) {
         listViewModel.saveCategoryId(itemId)
-        featureListDependencies.nextAction()
+        featureListNavigationContract.nextAction()
     }
 }

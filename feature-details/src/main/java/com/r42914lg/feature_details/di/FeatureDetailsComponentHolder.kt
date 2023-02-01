@@ -4,10 +4,10 @@ import com.r42914lg.feature_details.api.FeatureDetailsApi
 import com.r42914lg.module_injector.ComponentHolder
 
 object FeatureDetailsComponentHolder :
-    ComponentHolder<FeatureDetailsApi, FeatureDetailsDependenciesNavigationContract> {
+    ComponentHolder<FeatureDetailsApi, FeatureDetailsDependencies> {
     private var componentHolder: FeatureDetailsComponent? = null
 
-    override fun init(dependencies: FeatureDetailsDependenciesNavigationContract) {
+    override fun init(dependencies: FeatureDetailsDependencies) {
         if (componentHolder == null) {
             synchronized(FeatureDetailsComponentHolder::class.java) {
                 if (componentHolder == null) {

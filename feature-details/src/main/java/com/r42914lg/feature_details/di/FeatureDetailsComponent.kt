@@ -4,18 +4,21 @@ import com.r42914lg.feature_details.impl.ui.DetailsViewModel
 import com.r42914lg.feature_details.api.FeatureDetailsApi
 import dagger.Component
 
-@Component(dependencies = [FeatureDetailsDependenciesNavigationContract::class])
+@Component(
+    dependencies = [FeatureDetailsDependencies::class],
+    modules = [FeatureDetailsModule::class]
+)
 interface FeatureDetailsComponent : FeatureDetailsApi {
-
-    fun getVmFactory(): DetailsViewModel.Factory
 
     @Component.Factory
     interface Factory {
-        fun create(featureDetailsDependencies: FeatureDetailsDependenciesNavigationContract): FeatureDetailsComponent
+        fun create(featureDetailsDependencies: FeatureDetailsDependencies): FeatureDetailsComponent
     }
 
+    fun exposeVmFactory(): DetailsViewModel.Factory
+
     companion object {
-        fun initAndGet(featureDetailsDependencies: FeatureDetailsDependenciesNavigationContract): FeatureDetailsComponent {
+        fun initAndGet(featureDetailsDependencies: FeatureDetailsDependencies): FeatureDetailsComponent {
             return DaggerFeatureDetailsComponent.factory().create(featureDetailsDependencies)
         }
     }

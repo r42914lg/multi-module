@@ -1,6 +1,8 @@
 package com.r42914lg.mentor.di
 
-import android.content.Context
+import android.app.Application
+import com.r42914lg.core_api.CoreApi
+import dagger.BindsInstance
 import dagger.Component
 import dagger.internal.Preconditions
 
@@ -9,8 +11,10 @@ interface AppComponent {
 
     @Component.Factory
     interface Factory {
-        fun create(ctx: Context): AppComponent
+        fun create(@BindsInstance application: Application): AppComponent
     }
+
+    fun exposeCoreApi(): CoreApi
 
     companion object {
         @Volatile

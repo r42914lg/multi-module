@@ -6,8 +6,7 @@ import com.r42914lg.feature_list.api.FeatureListNavigationContract
 import com.r42914lg.feature_list.impl.ui.ListViewModel
 import com.r42914lg.module_injector.BaseDependencies
 
-public interface FeatureListDependencies : BaseDependencies, FeatureListNavigationContract {
-    fun getVmFactory(): ListViewModel.Factory
+public interface FeatureListDependencies : BaseDependencies {
     fun getCategoryListUseCase(): GetCategoryListUseCase
     fun saveCategoryUseCase(): SaveCategoryUseCase
 }

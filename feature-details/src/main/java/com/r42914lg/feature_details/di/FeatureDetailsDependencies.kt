@@ -6,8 +6,7 @@ import com.r42914lg.feature_details.api.FeatureDetailsNavigationContract
 import com.r42914lg.feature_details.impl.ui.DetailsViewModel
 import com.r42914lg.module_injector.BaseDependencies
 
-interface FeatureDetailsDependenciesNavigationContract : BaseDependencies, FeatureDetailsNavigationContract {
-    fun getVmFactory(): DetailsViewModel.Factory
+interface FeatureDetailsDependencies : BaseDependencies {
     fun getCategoryUseCase(): GetCategoryUseCase
     fun getCategoryDetailedUseCase(): GetCategoryDetailedUseCase
 }

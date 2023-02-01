@@ -10,21 +10,23 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.r42914lg.core_api.domain.remote.model.CategoryDetailed
+import com.r42914lg.feature_details.api.FeatureDetailsNavigationContract
 import com.r42914lg.feature_details.databinding.ActivityDetailsBinding
-import com.r42914lg.feature_details.di.FeatureDetailsDependenciesNavigationContract
 import com.r42914lg.utils.Resource
 import com.r42914lg.utils.VmFactory
+import javax.inject.Inject
 
-class DetailsFragment: Fragment() {
+class DetailsFragment @Inject constructor(
+    private val featureDetailsNavigationContract: FeatureDetailsNavigationContract,
+    private val vmFactory: DetailsViewModel.Factory
+): Fragment() {
 
     private var _binding: ActivityDetailsBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var featureDetailsDependencies: FeatureDetailsDependenciesNavigationContract
-
     private val detailsViewModel: DetailsViewModel by viewModels {
         VmFactory {
-            featureDetailsDependencies.getVmFactory().create()
+            vmFactory.create()
         }
     }
 
@@ -41,15 +43,9 @@ class DetailsFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        featureDetailsComponent = DaggerFeatureDetailsComponent
-//            .factory()
-//            .create(InjectCoreComponentUtils.provideCoreComponent(requireActivity().application))
-//
-//        navFeatureDetails = InjectNavFeatureDetailsUtils.provideNavFeatureDetails(requireActivity())
-
         activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                featureDetailsDependencies.goBackFromDetails()
+                featureDetailsNavigationContract.goBackFromDetails()
             }
         })
 
