@@ -2,14 +2,12 @@ package com.r42914lg.feature_details.impl.ui
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.r42914lg.core_api.domain.local.usecase.GetCategoryUseCase
-import com.r42914lg.core_api.domain.remote.usecase.GetCategoryDetailedUseCase
+import com.r42914lg.feature_details.di.FeatureDetailsDependencies
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 
 class DetailsViewModel @AssistedInject constructor(
-    getCategoryUseCase: GetCategoryUseCase,
-    private val getCategoryDetailedUseCase: GetCategoryDetailedUseCase
+    private val featureDetailsDependencies: FeatureDetailsDependencies,
 ): ViewModel() {
 
     @AssistedFactory
@@ -20,12 +18,16 @@ class DetailsViewModel @AssistedInject constructor(
     val categoryDetailed = MutableLiveData(-1)
 
     init {
-        getCategoryUseCase.execute(1)?.observeForever {
-            if (it != null)
-                categoryDetailed.value = it.categoryId
-        }
+        featureDetailsDependencies
+            .getCategoryUseCase()
+            .execute(1)?.observeForever {
+                if (it != null)
+                    categoryDetailed.value = it.categoryId
+            }
     }
 
     fun getDetails() =
-        getCategoryDetailedUseCase.execute(categoryDetailed.value!!)
+        featureDetailsDependencies
+            .getCategoryDetailedUseCase()
+            .execute(categoryDetailed.value!!)
 }

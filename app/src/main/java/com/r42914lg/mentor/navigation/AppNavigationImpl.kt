@@ -1,6 +1,7 @@
 package com.r42914lg.mentor.navigation
 
-import androidx.fragment.app.FragmentActivity
+import android.app.Activity
+import androidx.fragment.app.FragmentManager
 import com.r42914lg.feature_details.api.FeatureDetailsApi
 import com.r42914lg.feature_details.api.FeatureDetailsNavigationContract
 import com.r42914lg.feature_list.api.FeatureListApi
@@ -12,7 +13,8 @@ import javax.inject.Provider
 class AppNavigationImpl @Inject constructor(
     private val featureList: Provider<FeatureListApi>,
     private val featureDetails: Provider<FeatureDetailsApi>,
-    private val fragmentActivity: FragmentActivity
+    private val activity: Activity,
+    private val fragmentManager: FragmentManager
 ) : AppNavigationContract, FeatureListNavigationContract, FeatureDetailsNavigationContract {
 
     override fun startApp() {
@@ -20,12 +22,12 @@ class AppNavigationImpl @Inject constructor(
     }
 
     override fun goBackFromList() {
-        fragmentActivity.finish()
+        activity.finish()
     }
 
     override fun nextAction() {
         featureDetails.get().featureDetailsStarter()
-            .start(fragmentActivity.supportFragmentManager, R.id.fragment_container)
+            .start(fragmentManager, R.id.fragment_container)
     }
 
     override fun goBackFromDetails() {
@@ -34,6 +36,6 @@ class AppNavigationImpl @Inject constructor(
 
     private fun openList() {
         featureList.get().featureListStarter()
-            .start(fragmentActivity.supportFragmentManager, R.id.fragment_container)
+            .start(fragmentManager, R.id.fragment_container)
     }
 }

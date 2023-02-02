@@ -1,8 +1,8 @@
 package com.r42914lg.mentor.di
 
-import androidx.fragment.app.FragmentActivity
-import com.r42914lg.feature_details.api.FeatureDetailsNavigationContract
-import com.r42914lg.feature_list.api.FeatureListNavigationContract
+import android.app.Activity
+import androidx.fragment.app.FragmentFactory
+import androidx.fragment.app.FragmentManager
 import com.r42914lg.mentor.navigation.AppNavigationContract
 import dagger.BindsInstance
 import dagger.Component
@@ -10,7 +10,11 @@ import dagger.internal.Preconditions
 
 @Component(
     dependencies = [AppComponent::class],
-    modules = [ActivityModule::class]
+    modules = [
+        FeatureApiAndDependenciesModule::class,
+        NavigationModule::class,
+        FragmentsModule::class
+    ]
 )
 interface ActivityComponent {
 
@@ -18,13 +22,13 @@ interface ActivityComponent {
     interface Factory {
         fun create(
             appComponent: AppComponent,
-            @BindsInstance fragmentActivity: FragmentActivity
+            @BindsInstance activity: Activity,
+            @BindsInstance fragmentManager: FragmentManager
         ): ActivityComponent
     }
 
-    fun exposeFeatureListNavigationApi(): FeatureListNavigationContract
-    fun exposeFeatureDetailsNavigationApi(): FeatureDetailsNavigationContract
     fun exposeAppNavigationApi(): AppNavigationContract
+    fun exposeFragmentFactory(): FragmentFactory
 
     companion object {
         @Volatile
