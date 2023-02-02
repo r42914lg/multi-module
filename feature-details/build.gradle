@@ -39,7 +39,7 @@ android {
 dependencies {
 
     implementation project(path: ':utils')
-    implementation project(path: ':core-impl')
+    implementation project(path: ':core-api')
     implementation project(path: ':module-injector')
 
     // Dagger
