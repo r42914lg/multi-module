@@ -7,17 +7,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavDeepLinkRequest
+import androidx.navigation.fragment.findNavController
 import com.r42914lg.core_api.domain.remote.model.CategoryDetailed
-import com.r42914lg.feature_details.api.FeatureDetailsNavigationContract
 import com.r42914lg.feature_details.databinding.ActivityDetailsBinding
 import com.r42914lg.utils.Resource
 import com.r42914lg.utils.VmFactory
 import javax.inject.Inject
 
 class DetailsFragment @Inject constructor(
-    private val featureDetailsNavigationContract: FeatureDetailsNavigationContract,
     private val vmFactory: DetailsViewModel.Factory
 ): Fragment() {
 
@@ -45,7 +46,11 @@ class DetailsFragment @Inject constructor(
 
         activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                featureDetailsNavigationContract.goBackFromDetails()
+                val request = NavDeepLinkRequest.Builder
+                    .fromUri("android-app://example.google.app/my_list".toUri())
+                    .build()
+
+                findNavController().navigate(request)
             }
         })
 

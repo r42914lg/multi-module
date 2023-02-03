@@ -6,19 +6,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavDeepLinkRequest
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.r42914lg.feature_list.api.FeatureListNavigationContract
 import com.r42914lg.feature_list.databinding.ActivityListBinding
 import com.r42914lg.utils.Resource
 import com.r42914lg.utils.VmFactory
 import javax.inject.Inject
 
 class ListFragment @Inject constructor(
-    private val featureListNavigationContract: FeatureListNavigationContract,
     private val vmFactory: ListViewModel.Factory
-) : Fragment(), ListAdapter.ClickListener {
+): Fragment(), ListAdapter.ClickListener {
 
     private var _binding: ActivityListBinding? = null
     private val binding get() = _binding!!
@@ -46,7 +48,7 @@ class ListFragment @Inject constructor(
 
         activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                featureListNavigationContract.goBackFromList()
+                findNavController().popBackStack()
             }
         })
 
@@ -79,6 +81,11 @@ class ListFragment @Inject constructor(
 
     override fun itemClicked(itemId: Int) {
         listViewModel.saveCategoryId(itemId)
-        featureListNavigationContract.nextAction()
+
+        val request = NavDeepLinkRequest.Builder
+            .fromUri("android-app://example.google.app/my_details".toUri())
+            .build()
+
+        findNavController().navigate(request)
     }
 }

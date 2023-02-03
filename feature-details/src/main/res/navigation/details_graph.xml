@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/detailsFragment"
+    android:id="@+id/details_graph">
+
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.r42914lg.feature_details.impl.ui.DetailsFragment"
+        android:label="details"
+        tools:layout="@layout/activity_details">
+
+        <deepLink
+            app:uri="android-app://example.google.app/my_details" />
+
+    </fragment>
+
+</navigation>

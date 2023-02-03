@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
 
         val appComponent = AppComponent.get()
         ActivityComponent.init(DaggerActivityComponent.factory()
-            .create(appComponent, this, supportFragmentManager))
+            .create(appComponent, supportFragmentManager))
 
         supportFragmentManager.fragmentFactory = ActivityComponent.get()
             .exposeFragmentFactory()
@@ -27,10 +27,6 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        ActivityComponent.get()
-            .exposeAppNavigationApi()
-            .startApp()
     }
 
     override fun onPause() {

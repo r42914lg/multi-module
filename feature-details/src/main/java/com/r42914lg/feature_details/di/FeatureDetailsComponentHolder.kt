@@ -25,4 +25,7 @@ object FeatureDetailsComponentHolder :
     override fun reset() {
         componentHolder = null
     }
+
+    fun getVmFactory() =
+        componentHolder!!.exposeVmFactory()
 }

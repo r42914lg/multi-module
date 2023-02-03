@@ -2,7 +2,6 @@ package com.r42914lg.feature_list.di
 
 import com.r42914lg.feature_list.impl.ui.ListViewModel
 import com.r42914lg.feature_list.api.FeatureListApi
-import com.r42914lg.feature_list.api.FeatureListNavigationContract
 import dagger.Component
 
 @Component(
