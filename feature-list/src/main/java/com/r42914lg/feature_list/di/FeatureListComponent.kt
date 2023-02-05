@@ -2,12 +2,11 @@ package com.r42914lg.feature_list.di
 
 import com.r42914lg.feature_list.impl.ui.ListViewModel
 import com.r42914lg.feature_list.api.FeatureListApi
-import com.r42914lg.feature_list.api.FeatureListNavigationContract
 import dagger.Component
 
 @Component(
     dependencies = [FeatureListDependencies::class],
-    modules = [FeatureListModule::class]
+    modules = [FeatureListStarterModule::class]
 )
 interface FeatureListComponent : FeatureListApi {
 
@@ -15,8 +14,6 @@ interface FeatureListComponent : FeatureListApi {
     interface Factory {
         fun create(featureListDependencies: FeatureListDependencies): FeatureListComponent
     }
-
-    fun exposeVmFactory(): ListViewModel.Factory
 
     companion object {
         fun initAndGet(featureListDependencies: FeatureListDependencies): FeatureListComponent {

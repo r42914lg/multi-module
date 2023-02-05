@@ -1,4 +1,4 @@
-package com.r42914lg.utils
+package com.r42914lg.core_api.vmfactory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

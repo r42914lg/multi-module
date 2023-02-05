@@ -11,8 +11,9 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.r42914lg.feature_list.api.FeatureListNavigationContract
 import com.r42914lg.feature_list.databinding.ActivityListBinding
+import com.r42914lg.feature_list.di.FeatureListComponentHolder
 import com.r42914lg.utils.Resource
-import com.r42914lg.utils.VmFactory
+import com.r42914lg.core_api.vmfactory.VmFactory
 import javax.inject.Inject
 
 class ListFragment @Inject constructor(
@@ -52,6 +53,14 @@ class ListFragment @Inject constructor(
 
         initUi()
         getListItems()
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        if (isRemoving) {
+            FeatureListComponentHolder.reset()
+        }
     }
 
     private fun initUi() {

@@ -2,11 +2,12 @@ package com.r42914lg.feature_details.di
 
 import com.r42914lg.feature_details.impl.ui.DetailsViewModel
 import com.r42914lg.feature_details.api.FeatureDetailsApi
+import com.r42914lg.feature_details.api.FeatureDetailsNavigationContract
 import dagger.Component
 
 @Component(
     dependencies = [FeatureDetailsDependencies::class],
-    modules = [FeatureDetailsModule::class]
+    modules = [FeatureDetailsStarterModule::class]
 )
 interface FeatureDetailsComponent : FeatureDetailsApi {
 
@@ -15,7 +16,7 @@ interface FeatureDetailsComponent : FeatureDetailsApi {
         fun create(featureDetailsDependencies: FeatureDetailsDependencies): FeatureDetailsComponent
     }
 
-    fun exposeVmFactory(): DetailsViewModel.Factory
+//    fun exposeVmFactory(): DetailsViewModel.Factory
 
     companion object {
         fun initAndGet(featureDetailsDependencies: FeatureDetailsDependencies): FeatureDetailsComponent {

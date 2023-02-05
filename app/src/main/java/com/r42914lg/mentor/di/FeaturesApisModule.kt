@@ -1,6 +1,5 @@
 package com.r42914lg.mentor.di
 
-
 import com.r42914lg.core_api.CoreApi
 import com.r42914lg.core_api.domain.local.usecase.GetCategoryUseCase
 import com.r42914lg.core_api.domain.local.usecase.SaveCategoryUseCase
@@ -16,29 +15,7 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-class FeatureApiAndDependenciesModule {
-
-    @Provides
-    fun provideFeatureListDependencies(
-        coreApi: CoreApi,
-    ): FeatureListDependencies = object : FeatureListDependencies {
-            override fun getCategoryListUseCase(): GetCategoryListUseCase =
-                coreApi.provideGetCategoryListUseCase()
-
-            override fun saveCategoryUseCase(): SaveCategoryUseCase =
-                coreApi.provideSaveCategoryUseCase()
-        }
-
-    @Provides
-    fun provideFeatureDetailsDependencies(
-        coreApi: CoreApi,
-    ): FeatureDetailsDependencies = object : FeatureDetailsDependencies {
-            override fun getCategoryUseCase(): GetCategoryUseCase =
-                coreApi.provideGetCategoryUseCase()
-
-            override fun getCategoryDetailedUseCase(): GetCategoryDetailedUseCase =
-                coreApi.provideGetCategoryDetailedUseCase()
-        }
+class FeaturesApiModule {
 
     @Provides
     fun provideFeatureListApi(featureListDependencies: FeatureListDependencies): FeatureListApi {
@@ -51,4 +28,24 @@ class FeatureApiAndDependenciesModule {
         FeatureDetailsComponentHolder.init(featureDetailsDependencies)
         return FeatureDetailsComponentHolder.get()
     }
+
+    @Provides
+    fun provideFeatureListDependencies(coreApi: CoreApi): FeatureListDependencies =
+        object : FeatureListDependencies {
+            override fun getCategoryListUseCase(): GetCategoryListUseCase =
+                coreApi.provideGetCategoryListUseCase()
+
+            override fun saveCategoryUseCase(): SaveCategoryUseCase =
+                coreApi.provideSaveCategoryUseCase()
+        }
+
+    @Provides
+    fun provideFeatureDetailsDependencies(coreApi: CoreApi): FeatureDetailsDependencies =
+        object : FeatureDetailsDependencies {
+            override fun getCategoryUseCase(): GetCategoryUseCase =
+                coreApi.provideGetCategoryUseCase()
+
+            override fun getCategoryDetailedUseCase(): GetCategoryDetailedUseCase =
+                coreApi.provideGetCategoryDetailedUseCase()
+        }
 }

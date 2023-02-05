@@ -16,7 +16,7 @@ rootProject.name = "Mentor"
 include ':app'
 include ':feature-list'
 include ':feature-details'
-include ':utils'
 include ':core-api'
 include ':core-impl'
 include ':module-injector'
+include ':utils'

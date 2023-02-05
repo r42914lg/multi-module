@@ -3,6 +3,7 @@ package com.r42914lg.mentor.di
 import android.app.Activity
 import androidx.fragment.app.FragmentFactory
 import androidx.fragment.app.FragmentManager
+import com.r42914lg.feature_details.api.FeatureDetailsNavigationContract
 import com.r42914lg.mentor.navigation.AppNavigationContract
 import dagger.BindsInstance
 import dagger.Component
@@ -11,7 +12,7 @@ import dagger.internal.Preconditions
 @Component(
     dependencies = [AppComponent::class],
     modules = [
-        FeatureApiAndDependenciesModule::class,
+        FeaturesApiModule::class,
         NavigationModule::class,
         FragmentsModule::class
     ]

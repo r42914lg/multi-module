@@ -17,6 +17,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         val appComponent = AppComponent.get()
+
         ActivityComponent.init(DaggerActivityComponent.factory()
             .create(appComponent, this, supportFragmentManager))
 
@@ -37,8 +38,6 @@ class MainActivity : AppCompatActivity() {
         super.onPause()
 
         if (isFinishing) {
-            FeatureListComponentHolder.reset()
-            FeatureDetailsComponentHolder.reset()
             CoreComponentHolder.reset()
         }
     }

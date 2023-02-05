@@ -7,10 +7,11 @@ import dagger.BindsInstance
 import dagger.Module
 
 @Module
-internal interface FeatureListModule {
+internal abstract class FeatureListStarterModule {
 
     @Binds
-    fun bindFeatureListStarter(
+    abstract fun bindFeatureListStarter(
         @BindsInstance featureListStarterImpl: FeatureListStarterImpl
     ): FeatureListStarter
+
 }

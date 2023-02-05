@@ -5,18 +5,19 @@ import com.r42914lg.feature_list.api.FeatureListNavigationContract
 import com.r42914lg.mentor.navigation.AppNavigationContract
 import com.r42914lg.mentor.navigation.AppNavigationImpl
 import dagger.Binds
+import dagger.BindsInstance
 import dagger.Module
 
 @Module
 interface NavigationModule {
 
     @Binds
-    fun bindFeatureListNavigationApi(navigationImpl: AppNavigationImpl): FeatureListNavigationContract
+    fun bindFeatureListNavigationApi(@BindsInstance navigationImpl: AppNavigationImpl): FeatureListNavigationContract
 
     @Binds
-    fun bindFeatureDetailsNavigationApi(navigationImpl: AppNavigationImpl): FeatureDetailsNavigationContract
+    fun bindFeatureDetailsNavigationApi(@BindsInstance navigationImpl: AppNavigationImpl): FeatureDetailsNavigationContract
 
     @Binds
-    fun bindAppNavigationApi(navigationImpl: AppNavigationImpl): AppNavigationContract
+    fun bindAppNavigationApi(@BindsInstance navigationImpl: AppNavigationImpl): AppNavigationContract
 
 }

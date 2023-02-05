@@ -12,8 +12,10 @@ import androidx.fragment.app.viewModels
 import com.r42914lg.core_api.domain.remote.model.CategoryDetailed
 import com.r42914lg.feature_details.api.FeatureDetailsNavigationContract
 import com.r42914lg.feature_details.databinding.ActivityDetailsBinding
+import com.r42914lg.feature_details.di.FeatureDetailsComponentHolder
 import com.r42914lg.utils.Resource
-import com.r42914lg.utils.VmFactory
+import com.r42914lg.core_api.vmfactory.VmFactory
+import com.r42914lg.feature_details.di.FeatureDetailsComponent
 import javax.inject.Inject
 
 class DetailsFragment @Inject constructor(
@@ -50,6 +52,14 @@ class DetailsFragment @Inject constructor(
         })
 
         setUpObserver()
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        if (isRemoving) {
+            FeatureDetailsComponentHolder.reset()
+        }
     }
 
     private fun setUpObserver() {

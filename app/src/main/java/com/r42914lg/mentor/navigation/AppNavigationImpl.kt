@@ -21,6 +21,10 @@ class AppNavigationImpl @Inject constructor(
         openList()
     }
 
+    override fun goBackFromDetails() {
+        openList()
+    }
+
     override fun goBackFromList() {
         activity.finish()
     }
@@ -28,10 +32,6 @@ class AppNavigationImpl @Inject constructor(
     override fun nextAction() {
         featureDetails.get().featureDetailsStarter()
             .start(fragmentManager, R.id.fragment_container)
-    }
-
-    override fun goBackFromDetails() {
-        openList()
     }
 
     private fun openList() {
