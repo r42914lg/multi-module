@@ -1,7 +1,8 @@
 package com.r42914lg.mentor.di
 
 import android.app.Application
-import com.r42914lg.core_api.CoreApi
+import com.r42914lg.core_impl.di.CoreDependencies
+import com.r42914lg.core_other.log
 import dagger.BindsInstance
 import dagger.Component
 import dagger.internal.Preconditions
@@ -14,7 +15,7 @@ interface AppComponent {
         fun create(@BindsInstance application: Application): AppComponent
     }
 
-    fun exposeCoreApi(): CoreApi
+    fun exposeCoreDependencies(): CoreDependencies
 
     companion object {
         @Volatile
@@ -27,6 +28,7 @@ interface AppComponent {
 
         fun init(component: AppComponent) {
             require(instance == null) { "AppComponent is already initialized." }
+            log("LG: App component CREATED")
             instance = component
         }
     }

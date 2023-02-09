@@ -1,7 +1,7 @@
 package com.r42914lg.core_impl.di
 
 import com.r42914lg.core_api.CoreApi
-import com.r42914lg.core_api.log
+import com.r42914lg.core_other.log
 import com.r42914lg.module_injector.ComponentHolder
 
 object CoreComponentHolder : ComponentHolder<CoreApi, CoreDependencies> {

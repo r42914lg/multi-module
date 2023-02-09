@@ -13,9 +13,12 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/core-api" />
             <option value="$PROJECT_DIR$/core-impl" />
+            <option value="$PROJECT_DIR$/core-other" />
+            <option value="$PROJECT_DIR$/db" />
             <option value="$PROJECT_DIR$/feature-details" />
             <option value="$PROJECT_DIR$/feature-list" />
             <option value="$PROJECT_DIR$/module-injector" />
+            <option value="$PROJECT_DIR$/network" />
             <option value="$PROJECT_DIR$/utils" />
           </set>
         </option>

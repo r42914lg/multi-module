@@ -9,30 +9,21 @@ import com.r42914lg.core_impl.domain.local.usecase.SaveCategoryUseCaseImpl
 import com.r42914lg.core_impl.domain.remote.usecase.GetCategoryDetailedUseCaseImpl
 import com.r42914lg.core_impl.domain.remote.usecase.GetCategoryListUseCaseImpl
 import dagger.Binds
-import dagger.BindsInstance
 import dagger.Module
 
 @Module
-internal interface CoreModule {
+internal abstract class CoreModule {
 
     @Binds
-    fun bindGetCategoryUseCase(
-        @BindsInstance impl: GetCategoryUseCaseImpl
-    ) : GetCategoryUseCase
+    abstract fun bindGetCategoryUseCase(impl: GetCategoryUseCaseImpl): GetCategoryUseCase
 
     @Binds
-    fun bindGetCategoryDetailedUseCase(
-        @BindsInstance impl: GetCategoryDetailedUseCaseImpl
-    ) : GetCategoryDetailedUseCase
+    abstract fun bindGetCategoryDetailedUseCase(impl: GetCategoryDetailedUseCaseImpl): GetCategoryDetailedUseCase
 
     @Binds
-    fun bindGetCategoryListUseCase(
-        @BindsInstance impl: GetCategoryListUseCaseImpl
-    ) : GetCategoryListUseCase
+    abstract fun bindGetCategoryListUseCase(impl: GetCategoryListUseCaseImpl): GetCategoryListUseCase
 
     @Binds
-    fun bindSaveCategoryUseCase(
-        @BindsInstance impl: SaveCategoryUseCaseImpl
-    ) : SaveCategoryUseCase
+    abstract fun bindSaveCategoryUseCase(impl: SaveCategoryUseCaseImpl): SaveCategoryUseCase
 
 }

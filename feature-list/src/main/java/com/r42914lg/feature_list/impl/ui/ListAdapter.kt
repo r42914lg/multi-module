@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.r42914lg.core_api.domain.remote.model.Category
+import com.r42914lg.core_api.domain.local.model.Category
 import com.r42914lg.feature_list.databinding.ListItemBinding
 
 class ListAdapter(private val listener: ClickListener) :

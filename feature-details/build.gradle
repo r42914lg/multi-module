@@ -40,6 +40,7 @@ dependencies {
 
     implementation project(path: ':utils')
     implementation project(path: ':core-api')
+    implementation project(path: ':core-other')
     implementation project(path: ':module-injector')
 
     // Dagger

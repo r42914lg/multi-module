@@ -16,13 +16,16 @@ import com.r42914lg.utils.Resource
 import com.r42914lg.core_api.vmfactory.VmFactory
 import javax.inject.Inject
 
-class ListFragment @Inject constructor(
-    private val featureListNavigationContract: FeatureListNavigationContract,
-    private val vmFactory: ListViewModel.Factory
-) : Fragment(), ListAdapter.ClickListener {
+class ListFragment : Fragment(), ListAdapter.ClickListener {
 
     private var _binding: ActivityListBinding? = null
     private val binding get() = _binding!!
+
+    @Inject
+    lateinit var featureListNavigationContract: FeatureListNavigationContract
+
+    @Inject
+    lateinit var vmFactory: ListViewModel.Factory
 
     private lateinit var adapter: ListAdapter
 
@@ -44,6 +47,8 @@ class ListFragment @Inject constructor(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        FeatureListComponentHolder.get().inject(this)
 
         activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {

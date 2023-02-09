@@ -1,32 +1,38 @@
 package com.r42914lg.feature_details.di
 
-import com.r42914lg.core_api.log
+import com.r42914lg.core_other.log
 import com.r42914lg.feature_details.api.FeatureDetailsApi
 import com.r42914lg.module_injector.ComponentHolder
 
 object FeatureDetailsComponentHolder :
     ComponentHolder<FeatureDetailsApi, FeatureDetailsDependencies> {
-    private var componentHolder: FeatureDetailsComponent? = null
 
-    override fun init(dependencies: FeatureDetailsDependencies) {
-        if (componentHolder == null) {
-            synchronized(FeatureDetailsComponentHolder::class.java) {
-                if (componentHolder == null) {
-                    componentHolder = FeatureDetailsComponent.initAndGet(dependencies)
-                    log("LG: FeatureDetailsComponent reference INITIALIZED")
-                }
-            }
-        }
+    private var dependencies: FeatureDetailsDependencies? = null
+    private var component: FeatureDetailsComponent? = null
+
+    override fun init(_dependencies: FeatureDetailsDependencies) {
+        dependencies = _dependencies
+        log("LG: FeatureDetailsComponent dependencies INITIALIZED")
     }
 
     override fun get(): FeatureDetailsApi {
-        checkNotNull(componentHolder) { "Feature details component was not initialized!" }
-        log("LG: FeatureDetailsComponent reference RECEIVED")
-        return componentHolder!!
+        checkNotNull(dependencies) { "Feature Details dependencies were not initialized!" }
+        if (component == null) {
+            synchronized(FeatureDetailsComponentHolder::class.java) {
+                if (component == null) {
+                    component = FeatureDetailsComponent.initAndGet(dependencies!!)
+                    log("LG: Feature Details component INITIALIZED")
+                }
+            }
+        }
+        checkNotNull(component) { "Feature Details component was not initialized!" }
+        log("LG: Feature Details Component reference RECEIVED")
+        return component!!
     }
 
     override fun reset() {
-        log("LG: FeatureDetailsComponent reference RESET")
-        componentHolder = null
+        log("LG: Feature Details Component reference RESET")
+        component = null
+        dependencies = null
     }
 }

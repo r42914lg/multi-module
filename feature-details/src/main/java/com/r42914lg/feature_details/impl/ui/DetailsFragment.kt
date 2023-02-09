@@ -9,19 +9,15 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.r42914lg.core_api.domain.remote.model.CategoryDetailed
+import com.r42914lg.core_api.domain.local.model.CategoryDetailed
 import com.r42914lg.feature_details.api.FeatureDetailsNavigationContract
 import com.r42914lg.feature_details.databinding.ActivityDetailsBinding
 import com.r42914lg.feature_details.di.FeatureDetailsComponentHolder
 import com.r42914lg.utils.Resource
 import com.r42914lg.core_api.vmfactory.VmFactory
-import com.r42914lg.feature_details.di.FeatureDetailsComponent
 import javax.inject.Inject
 
-class DetailsFragment @Inject constructor(
-    private val featureDetailsNavigationContract: FeatureDetailsNavigationContract,
-    private val vmFactory: DetailsViewModel.Factory
-): Fragment() {
+class DetailsFragment : Fragment() {
 
     private var _binding: ActivityDetailsBinding? = null
     private val binding get() = _binding!!
@@ -31,6 +27,12 @@ class DetailsFragment @Inject constructor(
             vmFactory.create()
         }
     }
+
+    @Inject
+    lateinit var featureDetailsNavigationContract: FeatureDetailsNavigationContract
+
+    @Inject
+    lateinit var vmFactory: DetailsViewModel.Factory
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,6 +46,8 @@ class DetailsFragment @Inject constructor(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        FeatureDetailsComponentHolder.get().inject(this)
 
         activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {

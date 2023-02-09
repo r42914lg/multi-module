@@ -3,8 +3,8 @@ package com.r42914lg.core_impl.data.local.repository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.r42914lg.core_api.domain.local.model.CategoryDb
-import com.r42914lg.core_impl.data.local.dao.CategoryDao
-import com.r42914lg.core_impl.domain.local.model.CategoryEntity
+import com.r42914lg.db.data.local.dao.CategoryDao
+import com.r42914lg.db.data.local.model.CategoryEntity
 import javax.inject.Inject
 
 internal class CategoryRepository @Inject constructor(

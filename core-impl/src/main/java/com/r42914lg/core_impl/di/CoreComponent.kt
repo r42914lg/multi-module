@@ -6,7 +6,9 @@ import javax.inject.Singleton
 
 @Component(
     dependencies = [CoreDependencies::class],
-    modules = [RetrofitModule::class, RoomModule::class, CoreModule::class]
+    modules = [
+        CoreModule::class,
+    ]
 )
 @Singleton
 internal interface CoreComponent : CoreApi {

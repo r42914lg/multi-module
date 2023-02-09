@@ -39,11 +39,12 @@ android {
 dependencies {
 
     implementation project(path: ':core-api')
+    implementation project(path: ':core-other')
     implementation project(path: ':module-injector')
+    implementation project(path: ':utils')
 
     // Dagger
     implementation 'com.google.dagger:dagger:2.43.2'
-    implementation project(path: ':utils')
     kapt 'com.google.dagger:dagger-compiler:2.43.2'
 
     implementation 'androidx.core:core-ktx:1.9.0'

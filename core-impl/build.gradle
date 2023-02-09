@@ -34,16 +34,15 @@ android {
 dependencies {
 
     implementation project(path: ':core-api')
+    implementation project(path: ':core-other')
     implementation project(path: ':module-injector')
     implementation project(path: ':utils')
+    implementation project(path: ':db')
+    implementation project(path: ':network')
 
     // Dagger
     implementation 'com.google.dagger:dagger:2.43.2'
     kapt 'com.google.dagger:dagger-compiler:2.43.2'
-
-    // Retrofit and GSON
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 
     //LiveData
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
@@ -51,9 +50,6 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.appcompat:appcompat:1.6.0'
     implementation 'com.google.android.material:material:1.7.0'
-
-    kapt 'androidx.room:room-compiler:2.5.0'
-    implementation 'androidx.room:room-ktx:2.5.0'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'

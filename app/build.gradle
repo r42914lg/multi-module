@@ -44,6 +44,10 @@ dependencies {
     implementation project(path: ':core-api')
     implementation project(path: ':core-impl')
     implementation project(path: ':module-injector')
+    implementation project(path: ':db')
+    implementation project(path: ':network')
+    implementation project(path: ':core-other')
+
 
     // Dagger
     implementation 'com.google.dagger:dagger:2.43.2'

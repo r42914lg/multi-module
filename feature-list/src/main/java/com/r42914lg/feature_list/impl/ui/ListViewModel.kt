@@ -2,8 +2,8 @@ package com.r42914lg.feature_list.impl.ui
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import com.r42914lg.core_api.domain.local.model.Category
 import com.r42914lg.core_api.domain.local.model.CategoryDb
-import com.r42914lg.core_api.domain.remote.model.Category
 import com.r42914lg.feature_list.di.FeatureListDependencies
 import com.r42914lg.utils.Resource
 import dagger.assisted.AssistedFactory

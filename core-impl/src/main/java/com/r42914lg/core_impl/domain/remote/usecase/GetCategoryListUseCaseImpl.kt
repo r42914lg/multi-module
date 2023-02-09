@@ -1,7 +1,7 @@
 package com.r42914lg.core_impl.domain.remote.usecase
 
 import androidx.lifecycle.LiveData
-import com.r42914lg.core_api.domain.remote.model.Category
+import com.r42914lg.core_api.domain.local.model.Category
 import com.r42914lg.core_api.domain.remote.usecase.GetCategoryListUseCase
 import com.r42914lg.core_impl.data.remote.repository.CategoryRepository
 import com.r42914lg.utils.Resource

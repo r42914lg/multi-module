@@ -2,22 +2,24 @@ package com.r42914lg.mentor.di
 
 import com.r42914lg.feature_details.api.FeatureDetailsNavigationContract
 import com.r42914lg.feature_list.api.FeatureListNavigationContract
-import com.r42914lg.mentor.navigation.AppNavigationContract
-import com.r42914lg.mentor.navigation.AppNavigationImpl
+import com.r42914lg.mentor.ActivityNavigationContract
+import com.r42914lg.mentor.FragmentNavigationContract
+import com.r42914lg.mentor.NavigationImpl
 import dagger.Binds
-import dagger.BindsInstance
 import dagger.Module
 
 @Module
 interface NavigationModule {
 
     @Binds
-    fun bindFeatureListNavigationApi(@BindsInstance navigationImpl: AppNavigationImpl): FeatureListNavigationContract
+    fun bindAppNavigation(navigationImpl: NavigationImpl): ActivityNavigationContract
 
     @Binds
-    fun bindFeatureDetailsNavigationApi(@BindsInstance navigationImpl: AppNavigationImpl): FeatureDetailsNavigationContract
+    fun bindFeatureListNavContract(impl: NavigationImpl): FeatureListNavigationContract
 
     @Binds
-    fun bindAppNavigationApi(@BindsInstance navigationImpl: AppNavigationImpl): AppNavigationContract
+    fun bindFeatureDetailsNavContract(impl: NavigationImpl): FeatureDetailsNavigationContract
 
+    @Binds
+    fun bindFragmentNavContract(impl: NavigationImpl): FragmentNavigationContract
 }
