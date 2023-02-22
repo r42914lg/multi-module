@@ -5,7 +5,6 @@ import com.r42914lg.core_other.log
 import com.r42914lg.db.api.DbApi
 import dagger.BindsInstance
 import dagger.Component
-import javax.inject.Singleton
 
 @Component(
     modules = [RoomModule::class]

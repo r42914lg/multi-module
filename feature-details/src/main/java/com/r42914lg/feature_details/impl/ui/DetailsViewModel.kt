@@ -2,7 +2,7 @@ package com.r42914lg.feature_details.impl.ui
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.r42914lg.feature_details.di.FeatureDetailsDependencies
+import com.r42914lg.feature_details.impl.di.FeatureDetailsDependencies
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 

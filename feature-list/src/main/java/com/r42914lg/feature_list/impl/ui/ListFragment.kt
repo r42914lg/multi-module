@@ -11,9 +11,10 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.r42914lg.feature_list.api.FeatureListNavigationContract
 import com.r42914lg.feature_list.databinding.ActivityListBinding
-import com.r42914lg.feature_list.di.FeatureListComponentHolder
+import com.r42914lg.feature_list.impl.di.FeatureListComponentHolder
 import com.r42914lg.utils.Resource
 import com.r42914lg.core_api.vmfactory.VmFactory
+import com.r42914lg.feature_list.impl.di.FeatureListComponent
 import javax.inject.Inject
 
 class ListFragment : Fragment(), ListAdapter.ClickListener {
@@ -48,7 +49,7 @@ class ListFragment : Fragment(), ListAdapter.ClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        FeatureListComponentHolder.get().inject(this)
+        (FeatureListComponentHolder.get() as FeatureListComponent).inject(this)
 
         activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {

@@ -1,10 +1,12 @@
-package com.r42914lg.feature_list.di
+package com.r42914lg.feature_list.impl.di
 
 import com.r42914lg.feature_list.api.FeatureListApi
+import com.r42914lg.feature_list.impl.di.DaggerFeatureListComponent
 import com.r42914lg.feature_list.impl.ui.ListFragment
 import dagger.Component
 
 @Component(
+    modules = [FeatureListModule::class],
     dependencies = [FeatureListDependencies::class],
 )
 interface FeatureListComponent : FeatureListApi {
@@ -14,7 +16,7 @@ interface FeatureListComponent : FeatureListApi {
         fun create(featureListDependencies: FeatureListDependencies): FeatureListComponent
     }
 
-    override fun inject(listFragment: ListFragment)
+    fun inject(listFragment: ListFragment)
 
     companion object {
         fun initAndGet(featureListDependencies: FeatureListDependencies): FeatureListComponent {

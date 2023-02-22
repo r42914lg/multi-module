@@ -1,4 +1,4 @@
-package com.r42914lg.feature_list.di
+package com.r42914lg.feature_list.impl.di
 
 import com.r42914lg.core_other.log
 import com.r42914lg.feature_list.api.FeatureListApi

@@ -1,4 +1,4 @@
-package com.r42914lg.feature_list.di;
+package com.r42914lg.feature_list.impl.di;
 
 import com.r42914lg.core_api.domain.local.usecase.SaveCategoryUseCase
 import com.r42914lg.core_api.domain.remote.usecase.GetCategoryListUseCase

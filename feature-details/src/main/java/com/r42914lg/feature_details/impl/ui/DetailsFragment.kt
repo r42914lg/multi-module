@@ -12,9 +12,10 @@ import androidx.fragment.app.viewModels
 import com.r42914lg.core_api.domain.local.model.CategoryDetailed
 import com.r42914lg.feature_details.api.FeatureDetailsNavigationContract
 import com.r42914lg.feature_details.databinding.ActivityDetailsBinding
-import com.r42914lg.feature_details.di.FeatureDetailsComponentHolder
+import com.r42914lg.feature_details.impl.di.FeatureDetailsComponentHolder
 import com.r42914lg.utils.Resource
 import com.r42914lg.core_api.vmfactory.VmFactory
+import com.r42914lg.feature_details.impl.di.FeatureDetailsComponent
 import javax.inject.Inject
 
 class DetailsFragment : Fragment() {
@@ -47,7 +48,7 @@ class DetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        FeatureDetailsComponentHolder.get().inject(this)
+        (FeatureDetailsComponentHolder.get() as FeatureDetailsComponent).inject(this)
 
         activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {

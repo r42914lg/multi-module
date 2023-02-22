@@ -1,8 +1,9 @@
 package com.r42914lg.mentor.di
 
 import android.app.Application
-import com.r42914lg.core_impl.di.CoreDependencies
 import com.r42914lg.core_other.log
+import com.r42914lg.db.data.local.dao.CategoryDao
+import com.r42914lg.network.data.remote.datasource.CategoryDataSource
 import dagger.BindsInstance
 import dagger.Component
 import dagger.internal.Preconditions
@@ -15,7 +16,8 @@ interface AppComponent {
         fun create(@BindsInstance application: Application): AppComponent
     }
 
-    fun exposeCoreDependencies(): CoreDependencies
+    fun exposeDbClient(): CategoryDao
+    fun exposeNetworkClient(): CategoryDataSource
 
     companion object {
         @Volatile

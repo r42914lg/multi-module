@@ -1,4 +1,4 @@
-package com.r42914lg.feature_details.di
+package com.r42914lg.feature_details.impl.di
 
 import com.r42914lg.core_other.log
 import com.r42914lg.feature_details.api.FeatureDetailsApi

@@ -6,7 +6,6 @@ import com.r42914lg.db.data.local.MyDb
 import com.r42914lg.db.data.local.dao.CategoryDao
 import dagger.Module
 import dagger.Provides
-import javax.inject.Singleton
 
 @Module
 internal class RoomModule {
